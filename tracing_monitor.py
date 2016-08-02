@@ -14,12 +14,20 @@ def track_log_display():
     for key in rd.keys():
         items = rd.lrange(key, 0, -1)
         tmp_queue = []
-        for item in items:
+        total_time = 0
+        percent = []
+        for item in reversed(items):
             data = json.loads(item)
             microsec = data['bgn_timestamp']
+            if data['seq'] == 0:
+                total_time = data['took']
+            else:
+                status = 'warning' if data['exception_message'] else 'success'
+                percent.append([status, int(data['took'] * 100.0 / total_time)])
             data['bgn_timestamp'] = datetime.fromtimestamp(microsec/1000).strftime("%Y-%m-%d %H:%M:%S.") + str(microsec)[-3:]
             tmp_queue.append(data)
-        tmp_queue.reverse()
+        if tmp_queue:
+            tmp_queue[0]['took_percent_list'] = percent
         tracking_log.append(tmp_queue)
     return render_template('index.html', tracking_log=tracking_log)
 
