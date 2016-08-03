@@ -21,20 +21,20 @@
                 {% for track_queue in tracking_log %}
                     <li>
                         {% if track_queue[0].exception_message %}
-                            <span class="badge badge-warning">
+                            <span class="label label-warning">
                         {% else %}
-                            <span class="badge badge-success">
+                            <span class="label label-success">
                         {% endif %}
-                        <i class="icon-minus-sign"></i>{{ track_queue[0].chain_id }}
-                            <div class="progress">
-                                {% for percent in track_queue[0].took_percent_list %}
-                                <div class="progress-bar progress-bar-{{ percent[0] }}" role="progressbar"
-                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-                                     style="width: {{ percent[1] }}%;">
-                                    <span class="sr-only">{{ percent[1] }}% 完成</span>
-                                </div>
-                                {% endfor %}
-                            </div>
+                        <i class="icon-minus-sign"></i>{{ track_queue[0].chain_name }}
+                                                    <div class="progress">
+                                                        {% for percent in track_queue[0].took_percent_list %}
+                                                        <div class="progress-bar progress-bar-{{ percent[0] }}" role="progressbar"
+                                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                                             style="width: {{ percent[1] }}%;">
+                                                            <span class="sr-only">{{ percent[1] }}% 完成</span>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
                         </span>
                         {% for t in track_queue %}
                             {% if loop.index != 1 %}
@@ -42,50 +42,17 @@
                                     <li>
                                         <a href=""><span><i class="icon-time"></i>{{ t.bgn_timestamp }}</span>
                                             {% if t.exception_message %}
-                                                <i class="badge badge-warning">{{ t.desc }}</i>
+                                                <i class="label label-warning">{{ t.desc }}</i>
                                             {% else %}
-                                                <i class="badge badge-success">{{ t.desc }}</i>
+                                                <i class="label label-success">{{ t.desc }}</i>
                                             {% endif %}
-                                            <i class="badge badge-info">{{ t.took }} MS</i>
+                                            <i class="label label-info">{{ t.took }} MS</i>
                                         </a>
                                     </li>
                                 </ul>
                             {% endif %}
                         {% endfor %}
                     </li>
-                    {#                    <li>#}
-                    {#                    <span class="badge badge-success"><i#}
-                    {#                            class="icon-minus-sign"></i> Tuesday, January 8: 8.00 hours</span>#}
-                    {#                        <ul>#}
-                    {#                            <li>#}
-                    {#                                <span><i class="icon-time"></i> 6.00</span> – <a href="">Altered code...</a>#}
-                    {#                            </li>#}
-                    {#                            <li>#}
-                    {#                                <span><i class="icon-time"></i> 2.00</span> – <a href="">Simplified our approach#}
-                    {#                                to...</a>#}
-                    {#                            </li>#}
-                    {#                        </ul>#}
-                    {#                    </li>#}
-                    {#                    <li>#}
-                    {#                    <span class="badge badge-warning"><i#}
-                    {#                            class="icon-minus-sign"></i> Wednesday, January 9: 6.00 hours</span>#}
-                    {#                        <ul>#}
-                    {#                            <li>#}
-                    {#                                <a href=""><span><i class="icon-time"></i> 3.00</span> – Fixed bug caused by...</a>#}
-                    {#                            </li>#}
-                    {#                            <li>#}
-                    {#                                <a href=""><span><i class="icon-time"></i> 3.00</span> – Comitting latest code to Git...</a>#}
-                    {#                            </li>#}
-                    {#                        </ul>#}
-                    {#                    </li>#}
-                    {#                    <li>#}
-                    {#                        <span class="badge badge-important"><i class="icon-minus-sign"></i> Wednesday, January 9: 4.00 hours</span>#}
-                    {#                        <ul>#}
-                    {#                            <li>#}
-                    {#                                <a href=""><span><i class="icon-time"></i> 2.00</span> – Create component that...</a>#}
-                    {#                            </li>#}
-                    {#                        </ul>#}
-                    {#                    </li>#}
                 {% endfor %}
             </ul>
         </li>

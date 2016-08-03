@@ -16,7 +16,7 @@ def track_log_display():
         tmp_queue = []
         total_time = 0
         percent = []
-        for item in reversed(items):
+        for item in items:
             data = json.loads(item)
             microsec = data['bgn_timestamp']
             if data['seq'] == 0:
