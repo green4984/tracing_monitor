@@ -16,6 +16,7 @@ def track_log_display():
         tmp_queue = []
         total_time = 0
         percent = []
+        prefix_width = 0
         for item in items:
             data = json.loads(item)
             microsec = data['bgn_timestamp']
@@ -23,7 +24,9 @@ def track_log_display():
                 total_time = data['took']
             else:
                 status = 'warning' if data['exception_message'] else 'success'
-                percent.append([status, int(data['took'] * 100.0 / total_time)])
+                curr = int(data['took'] * 100.0 / total_time)
+                percent.append([status, prefix_width, curr])
+                prefix_width += curr
             data['bgn_timestamp'] = datetime.fromtimestamp(microsec/1000).strftime("%Y-%m-%d %H:%M:%S.") + str(microsec)[-3:]
             tmp_queue.append(data)
         if tmp_queue:
